@@ -1,0 +1,183 @@
+﻿@model Models.ViewModel.UserAddressViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="container">
+    <div class="container">
+        <!-- Breadcrumb Start-->
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i></a></li>
+            <li><a href="login.html">حساب کاربری</a></li>
+            <li><a href="@Url.Action("Register","User")">ثبت نام</a></li>
+        </ul>
+        <!-- Breadcrumb End-->
+        <div class="row">
+            <!--Middle Part Start-->
+            <div class="col-sm-9" id="content">
+                <h1 class="title">ثبت نام حساب کاربری</h1>
+                <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="login.html">صفحه لاگین</a> مراجعه کنید.</p>
+                @using (Html.BeginForm("Register", "User", FormMethod.Post))
+                {
+                    @Html.ValidationSummary()
+                    <fieldset id="account">
+                        <legend>اطلاعات شخصی شما</legend>
+                        <div style="display: none;" class="form-group required">
+                            <label class="col-sm-2 control-label">گروه مشتری</label>
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" checked="checked" value="1" name="customer_group_id">
+                                        پیشفرض
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-firstname" class="col-sm-2 control-label">نام</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.user.Firstname, new { @class = "form-control", placeholder = "نام" })
+                                @Html.ValidationMessageFor(model => model.user.Firstname)
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group required">
+                            <label for="input-lastname" class="col-sm-2 control-label">نام خانوادگی</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.user.Lastname, new { @class = "form-control", placeholder = "نام خانوادگی" })
+                            </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group required">
+                            <label for="input-email" class="col-sm-2 control-label">آدرس ایمیل</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.user.Email, new { @class = "form-control", placeholder = "آدرس ایمیل" })
+                            </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group required">
+                            <label for="input-telephone" class="col-sm-2 control-label">شماره تلفن</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.user.Phonenumber, new { @class = "form-control", placeholder = "شماره تلفن" })
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group required">
+                            <label for="input-telephone" class="col-sm-2 control-label">جنسیت</label>
+                            <div class="col-sm-10">
+                                @Html.DropDownList("user.Gender",EnumHelper.GetSelectList(typeof(Common.GenderType)),new { @class = "form-control"})
+                            </div>
+                        </div>
+                        <br /><br />
+
+                    </fieldset>
+                    <fieldset id="address">
+                        <legend>آدرس</legend>
+                        <div class="form-group required">
+                            <label for="input-zone" class="col-sm-2 control-label">شهر / استان</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="address_Province" name="address.Province">
+                                    <option> --- لطفا انتخاب کنید --- </option>
+                                    <option value="تهران">تهران</option>
+                                    <option value="کرج">کرج</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group required">
+                            <label for="input-city" class="col-sm-2 control-label">شهر</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.address.City, new { @class = "form-control", placeholder = "شهر" })
+                            </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group required">
+                            <label for="input-address-1" class="col-sm-2 control-label">آدرس</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.address.FullAddress, new { @class = "form-control", placeholder = "آدرس" })
+                            </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group required">
+                            <label for="input-postcode" class="col-sm-2 control-label">کد پستی</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.address.PostalCode, new { @class = "form-control", placeholder = "کد پستی" })
+                            </div>
+                        </div>
+                        <br /><br />
+
+                    </fieldset>
+                    <fieldset>
+                        <legend>رمز عبور شما</legend>
+                        <div class="form-group required">
+                            <label for="input-password" class="col-sm-2 control-label">رمز عبور</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.user.Password, new { @class = "form-control", placeholder = "رمز عبور" })
+                            </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group required">
+                            <label for="input-confirm" class="col-sm-2 control-label">تکرار رمز عبور</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="input-confirm" placeholder="تکرار رمز عبور" value="" name="confirm">
+                            </div>
+                        </div>
+                        <br /><br />
+
+                    </fieldset>
+                    <fieldset>
+                        <legend>خبرنامه</legend>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">اشتراک</label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" value="1" name="newsletter">
+                                    بله
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" checked="checked" value="0" name="newsletter">
+                                    نه
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="buttons">
+                        <div class="pull-right">
+                            <input type="checkbox" value="1" name="agree">
+                            &nbsp;من <a class="agree" href="#"><b>سیاست حریم خصوصی</b> را خوانده ام و با آن موافق هستم</a> &nbsp;
+                            <input type="submit" class="btn btn-primary" value="ادامه">
+                        </div>
+                    </div>
+                }
+            </div>
+            <!--Middle Part End -->
+            <!--Right Part Start -->
+            <aside id="column-right" class="col-sm-3 hidden-xs">
+                <h3 class="subtitle">حساب کاربری</h3>
+                <div class="list-group">
+                    <ul class="list-item">
+                        <li><a href="login.html">ورود</a></li>
+                        <li><a href="@Url.Action("Register","User")">ثبت نام</a></li>
+                        <li><a href="#">فراموشی رمز عبور</a></li>
+                        <li><a href="#">حساب کاربری</a></li>
+                        <li><a href="#">لیست آدرس ها</a></li>
+                        <li><a href="wishlist.html">لیست علاقه مندی</a></li>
+                        <li><a href="#">تاریخچه سفارشات</a></li>
+                        <li><a href="#">دانلود ها</a></li>
+                        <li><a href="#">امتیازات خرید</a></li>
+                        <li><a href="#">بازگشت</a></li>
+                        <li><a href="#">تراکنش ها</a></li>
+                        <li><a href="#">خبرنامه</a></li>
+                        <li><a href="#">پرداخت های تکرار شونده</a></li>
+                    </ul>
+                </div>
+            </aside>
+            <!--Right Part End -->
+        </div>
+    </div>
+</div>

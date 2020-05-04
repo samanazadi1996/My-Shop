@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@using Models;
+@model IEnumerable<Group>
+
+@helper AddOption(int? targetId)
+{
+    foreach (var item in Model.Where(p => p.targetId == targetId).ToList())
+    {
+        <li class="dropdown">
+            <a href="@item.Name">@item.Name @(Model.Any(p => p.targetId == item.Id && targetId!=null)?" >>> ":"")</a>
+            @if (Model.Any(p => p.targetId == item.Id))
+            {
+                <div class="dropdown-menu">
+                    <ul>
+                        <li>
+                            @Html.Raw(HttpUtility.HtmlDecode(AddOption(item.Id).ToString()))
+                        </li>
+                    </ul>
+                </div>
+            }
+        </li>
+    }
+}
+
+@AddOption(null)
