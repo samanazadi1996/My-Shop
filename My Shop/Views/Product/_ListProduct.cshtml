@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Models.Product>
+
+@foreach (var item in Model)
+{
+    @Html.Action("_Product", "Product", new { id = item.Id })
+}

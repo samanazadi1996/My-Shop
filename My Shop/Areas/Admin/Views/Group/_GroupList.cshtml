@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Models.Group>
+@helper AddOption(int? targetId, string space)
+{
+    foreach (var item in Model.Where(p => p.targetId == targetId).ToList())
+    {
+    <option value="@item.Id" targetId="@item.targetId">@space +  @item.Name </option>
+        @Html.Raw(HttpUtility.HtmlDecode(AddOption(item.Id, space + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").ToString()));
+    }
+}
+<div id="divGroupList">
+    <select id="@ViewData["id"]" name="@ViewData["name"]" size="17" style="width:100%;font-size:16px;" ondblclick="SettargetId(this);" class="form-control">
+        <option value="">گروه اصلی</option>
+        @AddOption(null, "")
+    </select>
+</div>

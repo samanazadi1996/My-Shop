@@ -1,0 +1,48 @@
+﻿@using Models;
+@model IEnumerable<Brand>
+
+@{
+    ViewBag.title = "مدیریت برند ها";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div class="card-box">
+        <h4>مدیریت برند ها</h4>
+        <p class="card-description">
+            . <code> برند </code> محصولات خود را در این صفحه اضافه کنید
+        </p>
+        <div class="row">
+            <div class="col-md-6">
+                <select id="Brand" name="Brand" size="15" style="width:100%;text-align:right;font-size:16px;" class="form-control">
+                    @foreach (var item in Model)
+                    {
+                        <option id="@item.Id" image="@item.Image">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class=" col-md-6">
+                @using (Html.BeginForm("Create", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div>
+                        <label>عکس برند</label>
+                        <input type="file" class="form-control sa-direction-rtl" name="File" id="File" required /><br />
+                    </div>
+
+                    <div>
+                        <label>نام برند</label>
+                        <input type="text" class="form-control sa-direction-rtl" name="Name" id="Name" required /><br />
+                        <button class="btn btn-success" id="btnAdd">افزودن برند</button>
+                        @*<button class="btn btn-danger" id="btnDelete">&nbsp;&nbsp;حذف برند&nbsp;&nbsp;</button>*@
+                        <br />
+                        <br />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+}

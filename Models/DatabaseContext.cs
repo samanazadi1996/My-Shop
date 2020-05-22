@@ -29,6 +29,9 @@ namespace Models
         public DbSet<ProductFile> productFiles { get; set; }
         public DbSet<Ticket> tickets { get; set; }
         public DbSet<Value> values { get; set; }
+        public DbSet<Address> addresses { get; set; }
+        public DbSet<Brand> brands { get; set; }
+        public DbSet<ProductCategory> productCategories { get; set; }
 
         public virtual int rebuildIndex()
         {
@@ -48,6 +51,9 @@ namespace Models
             modelBuilder.Configurations.Add(new Value.Configuration());
             modelBuilder.Configurations.Add(new ProductFile.Configuration());
             modelBuilder.Configurations.Add(new Sms.Configuration());
+            modelBuilder.Configurations.Add(new Address.Configuration());
+            modelBuilder.Configurations.Add(new Brand.Configuration());
+            modelBuilder.Configurations.Add(new ProductCategory.Configuration());
         }
     }
 }

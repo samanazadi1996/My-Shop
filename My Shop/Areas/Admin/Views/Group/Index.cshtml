@@ -1,0 +1,106 @@
+﻿@using Models;
+@model IEnumerable<Group>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div class="card-box">
+        <fieldset>
+            <h4>مدیریت دسته بندی ها</h4>
+            <p class="card-description">
+                . <code> دسته بندی </code> محصولات خود را در این صفحه اضافه کنید
+            </p>
+            @using (Html.BeginForm("AddGroup", "Group", FormMethod.Post, new { id = "groupForm" }))
+            {
+                <div class="col-md-6">
+                    @Html.Partial("_GroupList", Model, new ViewDataDictionary { { "id", "targetId" }, { "name", "targetId" } })
+                </div>
+                <div class=" col-md-6">
+                    <div>
+                        <label>نام گروه</label>
+                        <input type="text" class="form-control sa-direction-rtl" name="Name" id="Name" required /><br />
+                        <button class="btn btn-success" id="btnAdd">افزودن گروه</button>
+                        <button class="btn btn-primary" id="btnEdit">ثبت ویرایش</button>
+                        <button class="btn btn-danger" id="btnDelete">&nbsp;&nbsp;حذف گروه&nbsp;&nbsp;</button>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+
+            }
+        </fieldset>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function SettargetId(me) {
+            if (me.value != "") {
+                var txt = me.options[me.selectedIndex].text.trim()
+                document.getElementById("Name").value = txt.substring(2)
+            }
+
+        }
+        $(function () {
+            $("#btnAdd").click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Group/AddGroup",
+                    data: $("#groupForm").serialize(),
+                    type: "Post",
+                    success: function (result) {
+                        $("#divGroupList").html(result);
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+
+            });
+            $("#btnDelete").click(function (e) {
+                e.preventDefault();
+                if ($("#targetId").find(":selected").length > 0) {
+                    $.ajax({
+                        url: "/Group/DeleteGroup",
+                        data: { id: $("#targetId").find(":selected").val() },
+                        type: "Post",
+                        success: function (result) {
+                            $("#divGroupList").html(result);
+                        },
+                        error: function () {
+                            alert("خطا!");
+                        }
+                    });
+                }
+                else {
+                    alert("ابتدا گروه را انتخاب کنید");
+                }
+            });
+            $("#btnEdit").click(function (e) {
+                e.preventDefault();
+                if ($("#targetId").find(":selected").length > 0) {
+                    $.ajax({
+                        url: "/Group/EditGroup",
+                        data: {
+                            Id: $("#targetId").find(":selected").val(),
+                            Name: $("#Name").val(),
+                            targetId: $("#targetId").find(":selected").attr("targetId")
+                        },
+                        type: "Post",
+                        success: function (result) {
+                            $("#divGroupList").html(result);
+                        },
+                        error: function () {
+                            alert("خطا!");
+                        }
+                    });
+                }
+                else {
+                    alert("ابتدا گروه را انتخاب کنید");
+                }
+            });
+        });
+    </script>
+}

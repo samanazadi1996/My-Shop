@@ -1,10 +1,10 @@
 ﻿using Models;
-using Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common;
 
 namespace My_Shop.Controllers
 {
@@ -17,25 +17,21 @@ namespace My_Shop.Controllers
         {
             return View();
         }
-        public ActionResult Create()
+        public ActionResult Details(int id)
         {
-            return View(new CreateProductViewModel() { groups = db.Groups });
+            var model = db.products.Find(id);
+            return View(model);
         }
-        [HttpPost]
-        public ActionResult Create(CreateProductViewModel model, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult _Product(int id)
         {
-            string filename = "";
-            string path = Server.MapPath("~") + "Files\\ProductPicture\\";
-            foreach (var item in files)
-            {
-                filename = path + DateTime.Now.GetHashCode() + item.FileName;
-                item.SaveAs(filename);
-
-                model.product.ProductFiles.Add(new ProductFile(){ LocationFile=filename});
-
-            }
-
-            return View();
+            var product = db.products.Find(id);
+            return PartialView(product);
+        }
+        public ActionResult _ListProduct(int id)
+        {
+            var product = db.Groups.Find(id).Products.OrderByDescending(p=>p.Datetime).Take(6);
+            var t = product.Count();
+            return PartialView(product);
         }
     }
 }

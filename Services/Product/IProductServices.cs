@@ -1,5 +1,4 @@
-﻿using Models.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +9,8 @@ namespace Services.Product
 {
     public interface IProductServices
     {
-         bool AddProduct(CreateProductViewModel model, IEnumerable<HttpPostedFileBase> files);
-         bool UpdateProduct(CreateProductViewModel model, IEnumerable<HttpPostedFileBase> files);
-         bool DeleteProduct(int Id);
+         //bool AddProduct(CreateProductViewModel model, IEnumerable<HttpPostedFileBase> files);
+         //bool UpdateProduct(CreateProductViewModel model, IEnumerable<HttpPostedFileBase> files);
+         //bool DeleteProduct(int Id);
     }
 }

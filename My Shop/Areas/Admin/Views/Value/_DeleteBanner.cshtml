@@ -1,0 +1,39 @@
+﻿@model Models.Value
+
+<fieldset>
+    @using (Html.BeginForm("ConfirmDeleteBanner", "Value", FormMethod.Post))
+    {
+        <input type="hidden" value="@Model.Id" name="Id" />
+
+        <div class="col-md-12 form-group">
+            <div class="col-md-3"><label>لینک بنر</label></div>
+            <div class="col-md-9">
+                <label>@(Model.Content??Model.Content)</label>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="col-md-3"><label>توضیحات</label></div>
+            <div class="col-md-9">
+                <label>@(Model.Description??Model.Description)</label>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="col-md-3"><label>عکس بنر</label></div>
+            <div class="col-md-9">
+                <img style="max-width:100%;max-height:200px;border:solid 1px silver" id="upload-Preview" src="@(Model.Text??Model.Text)"/>
+
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                <div class="col-md-6 form-group">
+                    <button class="btn btn-success w-md">حذف</button>
+                </div>
+                <div class="col-md-6 form-group">
+                    <button class="btn btn-danger w-md" data-dismiss="modal">انصراف</button>
+                </div>
+            </div>
+        </div>
+    }
+</fieldset>

@@ -12,7 +12,7 @@
     foreach (var item in Model.Where(p => p.targetId == targetId).ToList())
     {
         <li class="dropdown">
-            <a href="@item.Name">@item.Name @(Model.Any(p => p.targetId == item.Id && targetId!=null)?" >>> ":"")</a>
+            <a href="@item.Name">@item.Name @(Model.Any(p => p.targetId == item.Id && targetId!=null)?"<strong style='transform:scale(1.8);float:left'>+</strong>":"")</a>
             @if (Model.Any(p => p.targetId == item.Id))
             {
                 <div class="dropdown-menu">

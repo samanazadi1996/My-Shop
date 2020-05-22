@@ -11,57 +11,19 @@ namespace My_Shop.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        // GET: Group
-        public ActionResult Index()
-        {
-            var model = db.Groups;
-            return View(model);
-        }
         public ActionResult MenuGroups()
         {
             var model = db.Groups;
             return View(model);
         }
 
-        [AjaxOnly]
-        [HttpPost]
-        public string DeleteGroup(int id)
+        public ActionResult _tab()
         {
-            var grop = db.Groups.Find(id);
-            if (!db.Groups.Any(p=>p.targetId==grop.Id))
-            {
-                db.Groups.Remove(grop);
-                db.SaveChanges();
-            }
-            ViewData["id"] = "targetId";
-            ViewData["name"] = "targetId";
-
-            var tmp = this.RenderPartialToString("_GroupList", db.Groups);
-            return tmp;
-
+            var group = db.Groups;
+            var id = Convert.ToInt32( db.values.Single(p=>p.Name=="tab_1").Content);
+            ViewBag.Groupname = group.Find(id).Name;
+              var model= group.Where(p=>p.targetId.Value==id);
+            return PartialView(model);
         }
-
-        [AjaxOnly]
-        [HttpPost]
-        public string AddGroup(Group group)
-        {
-            ViewData["id"] = "targetId";
-            ViewData["name"] = "targetId";
-            var tmp = this.RenderPartialToString("_GroupList", db.Groups);
-            return tmp;
-        }
-
-        [AjaxOnly]
-        [HttpPost]
-        public string EditGroup(Group group)
-        {
-            db.Entry(group).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            ViewData["id"] = "targetId";
-            ViewData["name"] = "targetId";
-            var tmp = this.RenderPartialToString("_GroupList", db.Groups);
-            return tmp;
-        }
-
     }
 }

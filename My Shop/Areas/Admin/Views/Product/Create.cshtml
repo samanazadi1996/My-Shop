@@ -1,0 +1,128 @@
+﻿@model My_Shop.Areas.Admin.ViewModels.CreateProductViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    <style>
+        input {
+            direction: rtl;
+        }
+
+        .img_Prive {
+            width: 30%;
+            height: auto;
+            margin: 1%;
+            float: left;
+        }
+    </style>
+
+}
+@section Scripts {
+    <script>
+        function preview_image(me) {
+            document.getElementById("div-img").innerHTML = ""
+            var fileList = me.files;
+            for (var i = 0; i < fileList.length; i++) {
+                var t = window.URL || window.webkitURL;
+                var objectUrl = t.createObjectURL(fileList[i]);
+                $('#div-img').append('<img src="' + objectUrl + '" class="img_Prive" " />');
+
+            }
+
+        };
+    </script>
+    <script src="~/Areas/Admin/Scripts/tinymce/tinyMane.js"></script>
+    <script src="~/Areas/Admin/Scripts/tinymce/tinymce.js"></script>
+}
+@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-lg-6">
+        <div class="card-box">
+            <fieldset>
+                <h4>
+                    جزئیات محصول
+                </h4>
+                <p class="card-description">. جزئیات محصول را با دقت وارد کنید</p>
+                <div class="col-md-12 form-group">
+                    @Html.LabelFor(model => model.product.Caption)
+                    @Html.TextBoxFor(Model => Model.product.Caption, new { @class = "form-control", autocomplete = "off" })
+                </div>
+
+
+                <div class="col-md-12 form-group">
+                    @Html.LabelFor(model => model.product.Price)
+                    @Html.TextBoxFor(Model => Model.product.Price, new { @class = "form-control", autocomplete = "off", type = "number" })
+                </div>
+
+                <div class="col-md-12 form-group">
+                    @Html.LabelFor(model => model.product.Keyword)
+                    @Html.TextBoxFor(Model => Model.product.Keyword, new { @class = "form-control", autocomplete = "off" })
+                </div>
+
+                <div class="col-md-12 form-group">
+                    @Html.LabelFor(model => model.product.Brand)
+                    @Html.DropDownList("product.brandId", (IEnumerable<SelectListItem>)ViewBag.Brands, "-- انتخاب کنید --", new { @class = "form-control" })
+                </div>
+
+
+                <div class="col-md-12 form-group">
+                    @Html.LabelFor(model => model.groups)
+                    @Html.Partial("~/Areas/Admin/Views/Group/_GroupList.cshtml", Model.groups, new ViewDataDictionary { { "id", "product_groupId" }, { "name", "product.groupId" } })
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <h4>@Html.LabelFor(model => model.product.Discount)</h4>
+                    @Html.TextBoxFor(Model => Model.product.Discount, new { @class = "form-control", autocomplete = "off", type = "number" })
+                </div>
+
+
+                <div class="col-md-12 form-group">
+                    @Html.LabelFor(model => model.product.Status)
+                    @Html.DropDownList("product.Status", EnumHelper.GetSelectList(typeof(Common.StatusTypeProduct)), new { @class = "form-control" })
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card-box">
+            <fieldset>
+                <h4>عکس محصول</h4>
+                <p class="card-description">
+                    .
+                    عکس محصولات را به صورت یکجا و
+                    <code>
+                        سایز مناسب قالب
+                    </code>
+                    انتخاب کنید
+                </p>
+                <div class="col-lg-12">
+                    <div class="col-md-12">
+                        <input type="file" id="files" name="files" oninput="preview_image(this)" class="form-control" multiple />
+                    </div>
+                </div>
+
+                <div class=" clearfix" style="padding:5px;"></div>
+                <div class="col-lg-12" id="div-img">
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card-box">
+            <fieldset>
+                <h4>توضیحات</h4>
+                <p class="card-description">. در صورت تمایل یک توضیح مختصر و کوتاه جهت نمایش به کاربران درباره محصول اضافه کنید </p>
+                <div class="col-md-12">
+                    <input id="upload" style="display:none;" type="file" name="image" value="" />
+                    @Html.TextAreaFor(Model => Model.product.Description, new { @class = "form-control" })
+                </div>
+
+                <div class=" clearfix" style="margin:20px;"></div>
+                <div class="col-md-12">
+                    <button class="btn btn-success pull-right">ثبت محصول</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+}

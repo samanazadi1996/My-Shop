@@ -1,6 +1,6 @@
 ﻿using Common;
 using Models;
-using Models.ViewModel;
+using My_Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +25,12 @@ namespace My_Shop.Controllers
                 var temp = model.user;
                 temp.Password = temp.Password.Encrypt();
                 temp.Status = StatusTypeUser.Active;
+                temp.Roles = "user";
+                temp.DateOfBirth = model.user.DateOfBirth.ToMiladiDate();
                 temp.Addresses.Add(model.address);
                 db.Users.Add(temp);
                 db.SaveChanges();
                 return View();
-
             }
             return View(model);
 

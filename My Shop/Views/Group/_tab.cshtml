@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Models.Group>
+<div class="category-module" id="latest_category">
+    <h3 class="subtitle">@ViewBag.Groupname - <a class="viewall" href="category.tpl">نمایش همه</a></h3>
+    <div class="category-module-content">
+        <ul id="sub-cat" class="tabs">
+            @foreach (var item in Model)
+            {
+                <li><a href="#tab-cat@(item.Id)">@item.Name</a></li>
+            }
+        </ul>
+        @foreach (var item in Model)
+        {
+
+            <div id="tab-cat@(item.Id)" class="tab_content">
+                <div class="owl-carousel latest_category_tabs">
+                    @Html.Action("_ListProduct", "Product", new { id = item.Id })
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

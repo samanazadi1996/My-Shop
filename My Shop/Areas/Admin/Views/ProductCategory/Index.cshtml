@@ -1,0 +1,121 @@
+﻿@model My_Shop.Areas.Admin.ViewModels.ProductCategoryViewModel
+@{
+    ViewBag.title = "مدیریت برگه ها";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    <style>
+        .divs {
+            transition: transform 1s;
+        }
+    </style>
+}
+
+<div class="col-lg-6">
+    <div class="card-box">
+        <fieldset>
+            <h4>برگه ویژه </h4>
+            <p class="card-description">
+                .
+                محصولات خود را جهت نمایش در برگه
+                <code>
+                    ویژه
+                </code>
+                انتخاب کنید
+            </p>
+            <div class="col-md-12 form-group">
+                <form id="frm_SelectedSpecial">
+                    @Html.ListBoxFor(model => model.SelectedSpecial, Model.AllProduct, new { @class = "form-control", size = "8", style = "direction:rtl;" })
+                </form>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-success" onclick="UpdateSelectedSpecial()">ذخیر ه</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="card-box">
+        <fieldset>
+            <h4>
+                جدیدترین ها
+            </h4>
+            <p class="card-description">. محصولات جدید خود را در این قسمت انتخاب کنید</p>
+            <div class="col-md-12 form-group">
+                <form id="frm_SelectedNewProduct">
+                    @Html.ListBoxFor(model => model.SelectedNewProduct, Model.AllProduct, new { @class = "form-control", size = "8", style = "direction:rtl;" })
+                </form>
+            </div>
+            <div class="col-md-12 form-group">
+                <button class="btn btn-success" onclick="UpdateSelectedNewProduct()">ذخیر ه</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="card-box">
+        <fieldset>
+            <h4>
+                پرفروش
+            </h4>
+            <p class="card-description">. محصولات پرفروش خود را در این قسمت انتخاب کنید</p>
+            <div class="col-md-12 form-group">
+                <form id="frm_SelectedBstSeller">
+                    @Html.ListBoxFor(model => model.SelectedBstSeller, Model.AllProduct, new { @class = "form-control", size = "8", style = "direction:rtl;" })
+                </form>
+            </div>
+            <div class="col-md-12 form-group">
+                <button class="btn btn-success" onclick="UpdateSelectedBstSeller()">ذخیر ه</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="card-box">
+        <fieldset>
+            <h4>
+                پیشنهادی
+            </h4>
+            <p class="card-description">. محصولات پیشنهادی خود را در این قسمت انتخاب کنید</p>
+            <div class="col-md-12 form-group">
+                <form id="frm_SelectedProposed">
+                    @Html.ListBoxFor(model => model.SelectedProposed, Model.AllProduct, new { @class = "form-control", size = "8", style = "direction:rtl;" })
+                </form>
+            </div>
+            <div class="col-md-12 form-group">
+                <button class="btn btn-success" onclick="UpdateSelectedProposed()">ذخیر ه</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function UpdateSelectedProposed() {
+            $.ajax({
+                url: "/ProductCategory/UpdateSelectedProposed",
+                data: $("#frm_SelectedProposed").serialize()
+            })
+        }
+
+        function UpdateSelectedSpecial() {
+            $.ajax({
+                url: "/ProductCategory/UpdateSelectedSpecial",
+                data: $("#frm_SelectedSpecial").serialize()
+            })
+        }
+        function UpdateSelectedNewProduct() {
+            $.ajax({
+                url: "/ProductCategory/UpdateSelectedNewProduct",
+                data: $("#frm_SelectedNewProduct").serialize()
+            })
+        }
+        function UpdateSelectedBstSeller() {
+            $.ajax({
+                url: "/ProductCategory/UpdateSelectedBstSeller",
+                data: $("#frm_SelectedBstSeller").serialize()
+            })
+        }
+
+    </script>
+}

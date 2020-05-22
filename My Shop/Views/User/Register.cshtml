@@ -1,7 +1,13 @@
-﻿@model Models.ViewModel.UserAddressViewModel
+﻿@model Models.ViewModels.UserAddressViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section styles{
+    <style>.field-validation-error{
+    color:orangered;
+}
+        </style>
+        }
 <div id="container">
     <div class="container">
         <!-- Breadcrumb Start-->
@@ -18,10 +24,10 @@
                 <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="login.html">صفحه لاگین</a> مراجعه کنید.</p>
                 @using (Html.BeginForm("Register", "User", FormMethod.Post))
                 {
-                    @Html.ValidationSummary()
                     <fieldset id="account">
                         <legend>اطلاعات شخصی شما</legend>
-                        <div style="display: none;" class="form-group required">
+                        <div style="        display: none;
+" class="form-group required">
                             <label class="col-sm-2 control-label">گروه مشتری</label>
                             <div class="col-sm-10">
                                 <div class="radio">
@@ -33,7 +39,7 @@
                             </div>
                         </div>
                         <div class="form-group required">
-                            <label for="input-firstname" class="col-sm-2 control-label">نام</label>
+                            <label for="input-firstname" class="col-sm-2 control-label">@Html.LabelFor(model => model.user.Firstname)</label>
                             <div class="col-sm-10">
                                 @Html.TextBoxFor(model => model.user.Firstname, new { @class = "form-control", placeholder = "نام" })
                                 @Html.ValidationMessageFor(model => model.user.Firstname)
@@ -41,32 +47,50 @@
                         </div>
                         <br /><br />
                         <div class="form-group required">
-                            <label for="input-lastname" class="col-sm-2 control-label">نام خانوادگی</label>
+                            <label for="input-lastname" class="col-sm-2 control-label">@Html.LabelFor(model => model.user.Lastname)</label>
                             <div class="col-sm-10">
                                 @Html.TextBoxFor(model => model.user.Lastname, new { @class = "form-control", placeholder = "نام خانوادگی" })
+                                @Html.ValidationMessageFor(model => model.user.Lastname)
+
                             </div>
                         </div>
                         <br /><br />
 
                         <div class="form-group required">
-                            <label for="input-email" class="col-sm-2 control-label">آدرس ایمیل</label>
+                            <label for="input-email" class="col-sm-2 control-label">@Html.LabelFor(model => model.user.Email)</label>
                             <div class="col-sm-10">
                                 @Html.TextBoxFor(model => model.user.Email, new { @class = "form-control", placeholder = "آدرس ایمیل" })
+                                @Html.ValidationMessageFor(model => model.user.Email)
+
                             </div>
                         </div>
                         <br /><br />
 
                         <div class="form-group required">
-                            <label for="input-telephone" class="col-sm-2 control-label">شماره تلفن</label>
+                            <label for="input-telephone" class="col-sm-2 control-label">@Html.LabelFor(model => model.user.Phonenumber)</label>
                             <div class="col-sm-10">
                                 @Html.TextBoxFor(model => model.user.Phonenumber, new { @class = "form-control", placeholder = "شماره تلفن" })
+                                @Html.ValidationMessageFor(model => model.user.Phonenumber)
+
+                            </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group required">
+                            <label for="input-telephone" class="col-sm-2 control-label">@Html.LabelFor(model => model.user.DateOfBirth)</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.user.DateOfBirth, new { @class = "form-control", placeholder = "تاریخ تولد" })
+                                @Html.ValidationMessageFor(model => model.user.DateOfBirth)
+
                             </div>
                         </div>
                         <br /><br />
                         <div class="form-group required">
-                            <label for="input-telephone" class="col-sm-2 control-label">جنسیت</label>
+                            <label for="input-telephone" class="col-sm-2 control-label">@Html.LabelFor(model => model.user.Gender)</label>
                             <div class="col-sm-10">
-                                @Html.DropDownList("user.Gender",EnumHelper.GetSelectList(typeof(Common.GenderType)),new { @class = "form-control"})
+                                @Html.DropDownList("user.Gender", EnumHelper.GetSelectList(typeof(Common.GenderType)), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.user.Gender)
+
                             </div>
                         </div>
                         <br /><br />
@@ -75,37 +99,45 @@
                     <fieldset id="address">
                         <legend>آدرس</legend>
                         <div class="form-group required">
-                            <label for="input-zone" class="col-sm-2 control-label">شهر / استان</label>
+                            <label for="input-zone" class="col-sm-2 control-label">@Html.LabelFor(model => model.address.Province)</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="address_Province" name="address.Province">
                                     <option> --- لطفا انتخاب کنید --- </option>
                                     <option value="تهران">تهران</option>
                                     <option value="کرج">کرج</option>
                                 </select>
+                                @Html.ValidationMessageFor(model => model.address.Province)
+
                             </div>
                         </div>
                         <br /><br />
 
                         <div class="form-group required">
-                            <label for="input-city" class="col-sm-2 control-label">شهر</label>
+                            <label for="input-city" class="col-sm-2 control-label">@Html.LabelFor(model => model.address.City)</label>
                             <div class="col-sm-10">
                                 @Html.TextBoxFor(model => model.address.City, new { @class = "form-control", placeholder = "شهر" })
+                                @Html.ValidationMessageFor(model => model.address.City)
+
                             </div>
                         </div>
                         <br /><br />
 
                         <div class="form-group required">
-                            <label for="input-address-1" class="col-sm-2 control-label">آدرس</label>
+                            <label for="input-address-1" class="col-sm-2 control-label">@Html.LabelFor(model => model.address.FullAddress)</label>
                             <div class="col-sm-10">
                                 @Html.TextBoxFor(model => model.address.FullAddress, new { @class = "form-control", placeholder = "آدرس" })
+                                @Html.ValidationMessageFor(model => model.address.FullAddress)
+
                             </div>
                         </div>
                         <br /><br />
 
                         <div class="form-group required">
-                            <label for="input-postcode" class="col-sm-2 control-label">کد پستی</label>
+                            <label for="input-postcode" class="col-sm-2 control-label">@Html.LabelFor(model => model.address.PostalCode)</label>
                             <div class="col-sm-10">
                                 @Html.TextBoxFor(model => model.address.PostalCode, new { @class = "form-control", placeholder = "کد پستی" })
+                                @Html.ValidationMessageFor(model => model.address.PostalCode)
+
                             </div>
                         </div>
                         <br /><br />
@@ -114,15 +146,17 @@
                     <fieldset>
                         <legend>رمز عبور شما</legend>
                         <div class="form-group required">
-                            <label for="input-password" class="col-sm-2 control-label">رمز عبور</label>
+                            <label for="input-password" class="col-sm-2 control-label">@Html.LabelFor(model => model.user.Password)</label>
                             <div class="col-sm-10">
-                                @Html.TextBoxFor(model => model.user.Password, new { @class = "form-control", placeholder = "رمز عبور" })
+                                @Html.PasswordFor(model => model.user.Password, new { @class = "form-control", placeholder = "رمز عبور"})
+                                @Html.ValidationMessageFor(model => model.user.Password)
+
                             </div>
                         </div>
                         <br /><br />
 
                         <div class="form-group required">
-                            <label for="input-confirm" class="col-sm-2 control-label">تکرار رمز عبور</label>
+                            <label for="input-confirm" class="col-sm-2 control-label">@Html.LabelFor(model => model.user.Password)</label>
                             <div class="col-sm-10">
                                 <input type="password" class="form-control" id="input-confirm" placeholder="تکرار رمز عبور" value="" name="confirm">
                             </div>
@@ -136,20 +170,15 @@
                             <label class="col-sm-2 control-label">اشتراک</label>
                             <div class="col-sm-10">
                                 <label class="radio-inline">
-                                    <input type="radio" value="1" name="newsletter">
-                                    بله
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" checked="checked" value="0" name="newsletter">
-                                    نه
+                                    @Html.CheckBoxFor(model => model.user.Newsletters)
                                 </label>
                             </div>
                         </div>
                     </fieldset>
                     <div class="buttons">
                         <div class="pull-right">
-                            <input type="checkbox" value="1" name="agree">
-                            &nbsp;من <a class="agree" href="#"><b>سیاست حریم خصوصی</b> را خوانده ام و با آن موافق هستم</a> &nbsp;
+                            @Html.CheckBoxFor(model => model.user.TermsAndConditions)
+                            &nbsp;من <label class="agree" ><b>سیاست حریم خصوصی</b> را خوانده ام و با آن موافق هستم</label> &nbsp;
                             <input type="submit" class="btn btn-primary" value="ادامه">
                         </div>
                     </div>

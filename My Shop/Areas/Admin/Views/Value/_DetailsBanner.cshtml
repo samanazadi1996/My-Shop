@@ -1,0 +1,37 @@
+﻿@model Models.Value
+
+<fieldset>
+    <div class="col-md-12 form-group">
+        <div class="col-md-3"><label>لینک بنر</label></div>
+        <div class="col-md-9">
+            <label>
+                <a href="@(Model.Content ?? Model.Content)">@(Model.Content ?? Model.Content)</a>
+            </label>
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <div class="col-md-3"><label>توضیحات</label></div>
+        <div class="col-md-9">
+            <label>@(Model.Description ?? Model.Description)</label>
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <div class="col-md-3"><label>تاریخ درج بنر</label></div>
+        <div class="col-md-9">
+            <label>@Model.DateTime.ToPersianDate()</label>
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <div class="col-md-3"><label>عکس بنر</label></div>
+        <div class="col-md-9">
+            <img style="max-width:100%;max-height:200px;border:solid 1px silver" id="upload-Preview" src="@(Model.Text??Model.Text)" />
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <div class="col-md-3"></div>
+        <div class="col-md-9 form-group">
+            <button class="btn btn-dribbble w-md" data-dismiss="modal">بازگشت به صفحه</button>
+        </div>
+    </div>
+
+</fieldset>

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Models.Brand>
+@{
+    Layout = null;
+}
+@if (Model.Any())
+{
+    <li class="menu_brands dropdown sub">
+        <a href="#">برند ها</a>
+        <span class="submore"></span><div class="dropdown-menu" style="margin-left: -557.75px; display: none;">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6">
+                    <a href="#"><img src="@item.Image" title="@item.Name" alt="@item.Name"></a>
+                    <a href="#">@item.Name</a>
+                </div>
+            }
+        </div>
+    </li>
+}

@@ -1,4 +1,5 @@
 ﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,27 +32,40 @@ namespace Models
 
         }
         #endregion
+        [Display(Name = "نام")]
         [Required(ErrorMessage = "نام خود را وارد کنید")]
         [MinLength(3, ErrorMessage = "نام باید حداقل 3 کاراکتر باشد")]
         [MaxLength(20, ErrorMessage = "نام باید حداکثر 20 کاراکتر باشد")]
         public string Firstname { get; set; }
-        [Required(ErrorMessage = "نام خانوادیگی خود را وارد کنید")]
+        [Display(Name = "نام خانوادگی")]
+        [Required(ErrorMessage = "نام خانوادگی خود را وارد کنید")]
         [MinLength(3, ErrorMessage = "نام خانوادگی باید حداقل 3 کاراکتر باشد")]
         [MaxLength(20, ErrorMessage = "نام خانوادگی باید حداکثر 20 کاراکتر باشد")]
-
         public string Lastname { get; set; }
-        [Required(ErrorMessage = "سن خود را وارد کنید")]
-        public int Age { get; set; }
-
+        [Display(Name = "تاریخ تولد")]
+        [Required(ErrorMessage = "تاریخ تولد الزامی است")]
+        public DateTime DateOfBirth { get; set; }
+        [Display(Name = "جنسیت")]
         public GenderType Gender { get; set; }
-
-        [Required(ErrorMessage = "شماره تماس خود را وارد کنید")]
-        [MinLength(11, ErrorMessage = "شماره تلفن باید حداقل 11 کاراکتر باشد")]
+        [Display(Name = "شماره همراه")]
+        [Required(ErrorMessage = "شماره همراه خود را وارد کنید")]
+        [MinLength(10, ErrorMessage = "شماره همراه اشتباه است")]
         public string Phonenumber { get; set; }
+        [Display(Name = "رمز عبور")]
         [Required(ErrorMessage = "رمز عبور خود را وارد کنید")]
         public string Password { get; set; }
+        [Display(Name = "ایمیل")]
+        [Required(ErrorMessage = "ایمیل خود را وارد کنید")]
+        [EmailAddress(ErrorMessage ="ایمیل نامعتبر است")]
         public string Email { get; set; }
+        [Display(Name = "نقش")]
+        public string Roles { get; set; }
+        [Display(Name = "وضعیت")]
         public StatusTypeUser Status { get; set; }
+        [Display(Name = "خبرنامه")]
+        public bool Newsletters { get; set; }
+        [Display(Name = "قوانین و مقررات")]
+        public bool TermsAndConditions { get; set; }
         public virtual ICollection<Product> Products { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }

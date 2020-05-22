@@ -40,9 +40,30 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,9 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BaseEntity.cs" />
+    <Compile Include="Entity\Brand.cs" />
     <Compile Include="Entity\Comment.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Entity\Group.cs" />
+    <Compile Include="Entity\ProductCategory.cs" />
     <Compile Include="Entity\ProductFile.cs" />
     <Compile Include="Entity\Order.cs" />
     <Compile Include="Entity\Sms.cs" />
@@ -81,10 +104,45 @@
     <Compile Include="Migrations\202005041735048_Vresion4.designer.cs">
       <DependentUpon>202005041735048_Vresion4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005051614385_Version5.cs" />
+    <Compile Include="Migrations\202005051614385_Version5.designer.cs">
+      <DependentUpon>202005051614385_Version5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005051925555_Version6.cs" />
+    <Compile Include="Migrations\202005051925555_Version6.designer.cs">
+      <DependentUpon>202005051925555_Version6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080837592_Version7.cs" />
+    <Compile Include="Migrations\202005080837592_Version7.designer.cs">
+      <DependentUpon>202005080837592_Version7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005101944451_Version8.cs" />
+    <Compile Include="Migrations\202005101944451_Version8.designer.cs">
+      <DependentUpon>202005101944451_Version8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005101953054_Version9.cs" />
+    <Compile Include="Migrations\202005101953054_Version9.designer.cs">
+      <DependentUpon>202005101953054_Version9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005111537331_Version91.cs" />
+    <Compile Include="Migrations\202005111537331_Version91.Designer.cs">
+      <DependentUpon>202005111537331_Version91.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005111602433_Version10.cs" />
+    <Compile Include="Migrations\202005111602433_Version10.designer.cs">
+      <DependentUpon>202005111602433_Version10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005211649236_Version11.cs" />
+    <Compile Include="Migrations\202005211649236_Version11.designer.cs">
+      <DependentUpon>202005211649236_Version11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entity\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entity\User.cs" />
+    <Compile Include="Repositories\ProductCategoryRepository.cs" />
+    <Compile Include="Repositories\BrandRepository.cs" />
+    <Compile Include="Repositories\AddressRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\CommentRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
@@ -94,8 +152,6 @@
     <Compile Include="Repositories\ProductFileRepository.cs" />
     <Compile Include="Repositories\TicketRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="ViewModel\UserAddressViewModel.cs" />
-    <Compile Include="ViewModel\CreateProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -122,6 +178,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005041735048_Vresion4.resx">
       <DependentUpon>202005041735048_Vresion4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051614385_Version5.resx">
+      <DependentUpon>202005051614385_Version5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051925555_Version6.resx">
+      <DependentUpon>202005051925555_Version6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080837592_Version7.resx">
+      <DependentUpon>202005080837592_Version7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101944451_Version8.resx">
+      <DependentUpon>202005101944451_Version8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101953054_Version9.resx">
+      <DependentUpon>202005101953054_Version9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005111537331_Version91.resx">
+      <DependentUpon>202005111537331_Version91.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005111602433_Version10.resx">
+      <DependentUpon>202005111602433_Version10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005211649236_Version11.resx">
+      <DependentUpon>202005211649236_Version11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

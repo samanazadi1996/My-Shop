@@ -12,7 +12,7 @@ using System.Web;
 public static class Utilty
 {
 
-    public static string ToPersianDate(this DateTime dt, string format = "hh:mm  yyyy/MM/dd")
+    public static string ToPersianDate(this DateTime dt, string format = "yyyy/MM/dd")
     {
         return new PersianDateTime(dt).ToString(format);
     }

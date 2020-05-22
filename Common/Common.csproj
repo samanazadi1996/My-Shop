@@ -72,6 +72,7 @@
     <Compile Include="Filters\AjaxOnlyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ImageUploader.cs" />
+    <Compile Include="RateHelper.cs" />
     <Compile Include="Utilty.cs" />
     <Compile Include="ViewHelper.cs" />
   </ItemGroup>

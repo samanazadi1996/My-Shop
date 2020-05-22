@@ -1,0 +1,65 @@
+﻿
+@font-face {
+    font-family: 'FontsFree-Net-ir_sans';
+    src: url('../../fonts/FontsFree-Net-ir_sans.ttf') format('truetype');
+}
+* {
+    font-family:FontsFree-Net-ir_sans;
+}
+
+.sa-white{color:white}
+.sa-blue{color:blue }
+.sa-red{color:red }
+.sa-black{color:black }
+.sa-green{color: green}
+.sa-greenyellow{color: greenyellow}
+.sa-silver{color: silver}
+.sa-darkred{color:darkred }
+.sa-lightblue{color:lightblue }
+.sa-darkblue{color:darkblue }
+.sa-cyan{color: cyan}
+.sa-magenta{color:magenta }
+.sa-gray{color:gray }
+.sa-orange{color:orange }
+.sa-yellow{color:yellow }
+.sa-pink{color:pink }
+.sa-hotpink{color:hotpink }
+.sa-lawngreen {color: lawngreen}
+
+.sa-float-left {float: left}
+.sa-float-right {float: right}
+
+.sa-direction-rtl{direction: rtl}
+.sa-direction-ltr{direction: ltr}
+
+.sa-text-align-right {text-align: right}
+.sa-text-align-left {text-align: left}
+.sa-text-align-center {text-align: center}
+
+.sa-font-size-8 {font-size: 8px}
+.sa-font-size-10 {font-size: 10px}
+.sa-font-size-12 {font-size: 12px}
+.sa-font-size-14 {font-size: 14px}
+.sa-font-size-16 {font-size: 16px}
+.sa-font-size-18 {font-size: 18px}
+.sa-font-size-20 {font-size: 20px}
+.sa-font-size-22 {font-size: 22px}
+.sa-font-size-24 {font-size: 24px}
+.sa-font-bold {font: bold}
+.sa-font-italic {font: italic}
+
+.sa-text-decoration-none {text-decoration: none}
+
+.sa-padding-5 {padding: 5px}
+.sa-padding-10 {padding: 10px}
+.sa-padding-15 {padding: 15px}
+.sa-padding-20 {padding: 20px}
+
+.sa-margin-5 {margin: 5px}
+.sa-margin-10 {margin: 10px}
+.sa-margin-15 {margin: 15px}
+.sa-margin-20 {margin: 20px}
+.sa-margin-auto {margin: auto}
+
+
+

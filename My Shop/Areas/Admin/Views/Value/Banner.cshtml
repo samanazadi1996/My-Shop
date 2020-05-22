@@ -1,0 +1,250 @@
+﻿@model IEnumerable<Models.Value>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+}
+@section Scripts {
+    <script>
+        let widthimg = 0;
+        let heightimg = 0;
+        function RenderPartialViewCreate(type, header,width,height) {
+            widthimg = width
+            heightimg=height
+            $.ajax({
+                url: "@Url.Action("_CreateBanner","Value")",
+                data: { type: type},
+                success: function (result) {
+                    document.getElementById("div_body").innerHTML=result
+                }
+            })
+            document.getElementById("myModalLabel").innerHTML = header
+        }
+        function RenderPartialViewDetails(id) {
+            $.ajax({
+                url: "@Url.Action("_DetailsBanner","Value")",
+                data: { id: id},
+                success: function (result) {
+                    document.getElementById("div_body").innerHTML=result
+                }
+            })
+        }
+        function RenderPartialViewDelete(id) {
+            $.ajax({
+                url: "@Url.Action("_DeleteBanner","Value")",
+                data: { id: id},
+                success: function (result) {
+                    document.getElementById("div_body").innerHTML=result
+                }
+            })
+        }
+
+        function createFileList(a) {
+            a = [].slice.call(Array.isArray(a) ? a : arguments)
+            for (var c, b = c = a.length, d = !0; b-- && d;) d = a[b] instanceof File
+            if (!d) throw new TypeError('expected argument to FileList is File or array of File objects')
+            for (b = (new ClipboardEvent('')).clipboardData || new DataTransfer; c--;) b.items.add(a[c])
+            return b.files
+        }
+        var dataURLToBlob = function (dataURL) {
+            var BASE64_MARKER = ';base64,';
+            if (dataURL.indexOf(BASE64_MARKER) == -1) {
+                var parts = dataURL.split(',');
+                var contentType = parts[0].split(':')[1];
+                var raw = parts[1];
+
+                return new Blob([raw], { type: contentType });
+            }
+
+            var parts = dataURL.split(BASE64_MARKER);
+            var contentType = parts[0].split(':')[1];
+            var raw = window.atob(parts[1]);
+            var rawLength = raw.length;
+
+            var uInt8Array = new Uint8Array(rawLength);
+
+            for (var i = 0; i < rawLength; ++i) {
+                uInt8Array[i] = raw.charCodeAt(i);
+            }
+
+            return new Blob([uInt8Array], { type: contentType });
+        }
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img = new Image();
+                    img.onload = function () {
+                            var width = widthimg;
+                            var height =heightimg;
+
+                            var canvas = document.createElement("canvas");
+                            canvas.width = width;
+                            canvas.height = height;
+                            canvas.getContext("2d").drawImage(this, 0, 0, width, height);
+                            var dataUrl = canvas.toDataURL('image/jpeg');
+                            var resizedImage = dataURLToBlob(dataUrl);
+                            var file = new File([resizedImage], input.files[0].name, { type: input.files[0].type })
+
+                        input.files = createFileList(file);
+                    }
+                    img.src = e.target.result;
+
+
+                    $('#output').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        }
+
+    </script>
+}
+
+<div class="col-lg-12">
+    <div class="card-box">
+        <fieldset>
+            <h4 class="card-title">@Html.Label("بنر اصلی")</h4>
+            <p class="card-description">
+                عکس استاندارد برای نمایش در این قسمت از بنر باید دارای طور و عرض <code>1140px * 420px</code> باشد .
+            </p>
+            <div class="col-md-12 form-group">
+                <a onclick="RenderPartialViewCreate('BannerTop','بنر اصلی صفحه',1140,420)" class="btn btn-success btn-trans waves-effect waves-success" data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-plus"></i></a>
+
+            </div>
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-primary">
+                            <th> @Html.Label("#") </th>
+                            <th> @Html.Label("عکس بنر") </th>
+                            <th> @Html.Label("...") </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(p => p.Name == "BannerTop"))
+                        {
+                            <tr class="table-primary">
+                                <td> @item.Id </td>
+                                <td>
+                                    <img src="@item.Text" title="@(item.Text.Substring(item.Text.LastIndexOf("/") + 1))"  style="max-height:40px;"/>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-trans waves-effect waves-success m-b-5"><i class="zmdi zmdi-edit"></i></a>
+                                    <a onclick="RenderPartialViewDetails(@item.Id)" class="btn btn-warning btn-trans waves-effect waves-success m-b-5"  data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-eye"></i></a>
+                                    <a onclick="RenderPartialViewDelete(@item.Id)" class="btn btn-danger btn-trans waves-effect waves-success m-b-5" data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-delete"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="card-box">
+        <fieldset>
+            <h4 class="card-title">@Html.Label("بنر 1 * 2")</h4>
+            <p class="card-description">
+                عکس استاندارد برای نمایش در این قسمت از بنر باید دارای طور و عرض <code>600px * 250px</code> باشد .
+            </p>
+            @if (Model.Where(p => p.Name == "Banner2*1").Count() < 2)
+            {
+                <div class="col-md-12 form-group">
+                    <a onclick="RenderPartialViewCreate('Banner2*1','بنر با طول وعرض 2 در 1',600,250)" class="btn btn-success btn-trans waves-effect waves-success" data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-plus"></i></a>
+                </div>
+
+            }
+            <div class="col-md-12">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-danger">
+                            <th> @Html.Label("#") </th>
+                            <th> @Html.Label("عکس بنر") </th>
+                            <th> @Html.Label("...") </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(p => p.Name == "Banner2*1"))
+                        {
+                        <tr class="table-danger">
+                            <td> @item.Id </td>
+                            <td>
+                                <img src="@item.Text" title="@(item.Text.Substring(item.Text.LastIndexOf("/") + 1))" style="max-height:40px;" />
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-trans waves-effect waves-success m-b-5"><i class="zmdi zmdi-edit"></i></a>
+                                <a onclick="RenderPartialViewDetails(@item.Id)" class="btn btn-warning btn-trans waves-effect waves-success m-b-5" data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-eye"></i></a>
+                                <a onclick="RenderPartialViewDelete(@item.Id)" class="btn btn-danger btn-trans waves-effect waves-success m-b-5" data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-delete"></i></a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="card-box">
+        <fieldset>
+            <h4 class="card-title">@Html.Label("بنر 1 * 1")</h4>
+
+            <p class="card-description">
+                عکس استاندارد برای نمایش در این قسمت از بنر باید دارای طور و عرض <code>300px * 300px</code> باشد .
+            </p>
+            @if (Model.Where(p => p.Name == "Banner1*1").Count() < 4)
+            {
+                <div class="col-md-12 form-group">
+                    <a onclick="RenderPartialViewCreate('Banner1*1','بنر با طول وعرض 1 در 1',300,300)" class="btn btn-success btn-trans waves-effect waves-success" data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-plus"></i></a>
+                </div>
+
+            }
+            <div class="col-md-12">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-success">
+                            <th> @Html.Label("#") </th>
+                            <th> @Html.Label("عکس بنر") </th>
+                            <th> @Html.Label("...") </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(p => p.Name == "Banner1*1"))
+                        {
+                        <tr class="table-success">
+                            <td> @item.Id </td>
+                            <td>
+                                <img src="@item.Text" title="@(item.Text.Substring(item.Text.LastIndexOf("/") + 1))" style="max-height:40px;" />
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-trans waves-effect waves-success m-b-5"><i class="zmdi zmdi-edit"></i></a>
+                                <a onclick="RenderPartialViewDetails(@item.Id)" class="btn btn-warning btn-trans waves-effect waves-success m-b-5" data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-eye"></i></a>
+                                <a onclick="RenderPartialViewDelete(@item.Id)" class="btn btn-danger btn-trans waves-effect waves-success m-b-5" data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-delete"></i></a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="div_body">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
